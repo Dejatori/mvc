@@ -1,0 +1,17 @@
+# Deshabilitar el listado de directorios
+Options All -Indexes
+
+# Url amigables -- Esto te ayudará a no tener que se muestre solo el nombre de la pagina en la url
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+rewriteRule ^([-a-zA-Z0-9/]+)$ index.php?ruta=$1 [L,QSA]
+
+# Redirigir a 404 los archivos que no deben ser accesibles -- Es útil hacerlo por ciberseguridad
+RewriteCond %{REQUEST_URI} \.(iml|xml|meta|zip|sql|log|bat|gitattributtes|dist|yml|markdown|template|y|sh|gitignore|cache|md|json|lock|phar|yaml) [NC,OR]
+RewriteCond %{REQUEST_URI} -d
+RewriteRule .* - [R=404,L]
+
+# Redirigir archivos específicos a 404
+RewriteRule ^(license|LICENSE)$ - [R=404,L]
