@@ -8,6 +8,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 rewriteRule ^([-a-zA-Z0-9/]+)$ index.php?ruta=$1 [L,QSA]
 
+# Personalización de mensajes de error
+ErrorDocument 404 /mvc/vista/modulos/404.php
+ErrorDocument 403 /mvc/vista/modulos/403.php
+ErrorDocument 500 /mvc/vista/modulos/500.php
+
 # Redirigir a 404 los archivos que no deben ser accesibles -- Es útil hacerlo por ciberseguridad
 RewriteCond %{REQUEST_URI} \.(iml|xml|meta|zip|sql|log|bat|gitattributtes|dist|yml|markdown|template|y|sh|gitignore|cache|md|json|lock|phar|yaml) [NC,OR]
 RewriteCond %{REQUEST_URI} -d
